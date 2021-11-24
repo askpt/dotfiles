@@ -45,11 +45,16 @@ if test ! $(which brew); then
 fi
 
 # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
+echo "Creating symlink to .zshrc"
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
 
 # Update Homebrew recipes
+echo "Update brew repositories"
 brew update
 
+# Install Oh My Posh
+
 # Install all our dependencies with bundle (See Brewfile)
+echo "Install brew bundle"
 brew tap homebrew/bundle
