@@ -22,3 +22,34 @@ if test ! $(which omz); then
     echo "Installing Oh My Zsh"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
+
+# Grab path for Homebrew
+if [ 'Linux' = "$OS" ]; then
+    HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'amd64' = ARCH ]; then
+    HOMEBREW_PATH=/usr/local/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+    HOMEBREW_PATH=/opt/homebrew/bin/brew
+else
+    echo "Unsupported OS/Arch combination"
+    exit 1
+fi
+
+# Check for Homebrew and install if we don't have it
+if test ! $(which brew); then
+    echo "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    echo 'eval "$('$HOMEBREW_PATH' shellenv)"' >>$HOME/.zprofile
+    eval "$($HOMEBREW_PATH shellenv)"
+fi
+
+# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
+rm -rf $HOME/.zshrc
+ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
+
+# Update Homebrew recipes
+brew update
+
+# Install all our dependencies with bundle (See Brewfile)
+brew tap homebrew/bundle
