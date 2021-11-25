@@ -69,7 +69,7 @@ if test ! $(which oh-my-posh); then
         sudo chmod +x /usr/local/bin/oh-my-posh
     fi
 
-    echo 'eval "$(oh-my-posh --init --shell zsh --config '$HOME'/.dotfiles/shell/ohmyposh.json)"' >>$HOME/.zshrc
+    echo 'eval "$(oh-my-posh --init --shell zsh --config '$HOME'/.dotfiles/shell/ohmyposh.json)"' >>$HOME/.zprofile
 fi
 
 # Install all our dependencies with bundle (See Brewfile)
