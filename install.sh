@@ -80,3 +80,7 @@ brew tap homebrew/bundle
 
 # General brew bundle
 brew bundle --file $DOTFILES/brew/Brewfile
+
+if [ 'Darwin' = "$OS" ]; then
+    brew bundle --file $DOTFILES/brew/osx.Brewfile
+fi
