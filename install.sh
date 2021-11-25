@@ -59,6 +59,18 @@ echo "Update brew repositories"
 brew update
 
 # Install Oh My Posh
+if test ! $(which oh-my-posh); then
+    echo "Installing Oh My Posh"
+    if [ 'Darwin' = "$OS" ]; then
+        brew tap jandedobbeleer/oh-my-posh
+        brew install oh-my-posh
+    elif [ 'Linux' = "$OS" ]; then
+        sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+        sudo chmod +x /usr/local/bin/oh-my-posh
+    fi
+
+    echo 'eval "$(oh-my-posh --init --shell zsh --config '$HOME'/.dotfiles/shell/ohmyposh.json)"' >>$HOME/.zshrc
+fi
 
 # Install all our dependencies with bundle (See Brewfile)
 echo "Install brew bundle"
