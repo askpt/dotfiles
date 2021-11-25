@@ -89,4 +89,8 @@ if [ 'Darwin' = "$OS" ]; then
     # Symlink the Mackup config file to the home directory
     echo "Creating symlink to Mackup config file"
     ln -s $DOTFILES/.mackup.cfg $HOME/.mackup.cfg
+
+    # Set macOS preferences - we will run this last because this will reload the shell
+    echo "Setting macOS preferences"
+    source $DOTFILES/.macos
 fi
