@@ -1,7 +1,12 @@
 #!/bin/sh
 
 OS=$(uname -s)
+# Linux = Linux
+# Darwin = macOS
+
 ARCH=$(uname -m)
+# x86_64 = 64-bit
+# arm64 = ARM
 
 echo "Setting up your machine - $OS $ARCH"
 
@@ -26,7 +31,7 @@ fi
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
     HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'amd64' = ARCH ]; then
+elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
     HOMEBREW_PATH=/usr/local/bin/brew
 elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
     HOMEBREW_PATH=/opt/homebrew/bin/brew
