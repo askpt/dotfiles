@@ -1,5 +1,7 @@
 #!/bin/sh
 
+DOTFILES=$HOME/.dotfiles
+
 OS=$(uname -s)
 # Linux = Linux
 # Darwin = macOS
