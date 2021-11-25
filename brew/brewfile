@@ -6,16 +6,14 @@ tap 'homebrew/bundle'
 tap 'nicoverbruggen/homebrew-cask'
 
 # Binaries
-brew 'awscli'
 brew 'bash' # Latest Bash version
-brew 'ffmpeg'
 brew 'gh'
 brew 'git'
 brew 'gnupg'
 brew 'grep'
 
 # Development Tools
-brew 'dotnet'
+
 brew 'node'
 brew 'yarn'
 
@@ -25,6 +23,8 @@ brew 'yarn'
 # cask 'signal'
 # cask 'slack'
 # cask 'visual-studio-code'
+# cask 'dotnet-sdk'
+# cask 'dotnet'
 
 # Fonts
 cask 'font-lato'
