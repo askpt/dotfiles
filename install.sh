@@ -79,4 +79,4 @@ echo "Install brew bundle"
 brew tap homebrew/bundle
 
 # General brew bundle
-brew bundle --file $DOTFILES/Brewfile
+brew bundle --file $DOTFILES/brew/Brewfile
