@@ -81,6 +81,12 @@ brew tap homebrew/bundle
 # General brew bundle
 brew bundle --file $DOTFILES/brew/Brewfile
 
+# macOS specific installation
 if [ 'Darwin' = "$OS" ]; then
+    # macOS specific brew bundle
     brew bundle --file $DOTFILES/brew/osx.Brewfile
+
+    # Symlink the Mackup config file to the home directory
+    echo "Creating symlink to Mackup config file"
+    ln -s $DOTFILES/.mackup.cfg $HOME/.mackup.cfg
 fi
