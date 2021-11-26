@@ -92,5 +92,5 @@ if [ 'Darwin' = "$OS" ]; then
 
     # Set macOS preferences - we will run this last because this will reload the shell
     echo "Setting macOS preferences"
-    source $DOTFILES/.macos
+    source $DOTFILES/shell/.macos
 fi
