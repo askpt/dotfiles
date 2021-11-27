@@ -20,6 +20,7 @@ cask 'dotnet'
 cask 'microsoft-teams'
 cask 'jetbrains-toolbox'
 cask 'microsoft-edge'
+cask 'visual-studio'
 
 # Fonts
 cask 'font-lato'

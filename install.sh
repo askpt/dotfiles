@@ -94,3 +94,17 @@ if [ 'Darwin' = "$OS" ]; then
     echo "Setting macOS preferences"
     source $DOTFILES/shell/.macos
 fi
+
+# Linux specific installation
+if [ 'Linux' = "$OS" ]; then
+    # install dotnet
+    echo "Installing dotnet"
+    wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    rm packages-microsoft-prod.deb
+
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https &&
+        sudo apt-get update &&
+        sudo apt-get install -y dotnet-sdk-6.0
+fi
