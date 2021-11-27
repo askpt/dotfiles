@@ -108,3 +108,9 @@ if [ 'Linux' = "$OS" ]; then
         sudo apt-get update &&
         sudo apt-get install -y dotnet-sdk-6.0
 fi
+
+## Enable local HTTPS for .NET Core
+if test $(which dotnet); then
+    echo "Enabling local HTTPS for .NET Core"
+    dotnet dev-certs https --trust
+fi
