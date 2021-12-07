@@ -60,18 +60,10 @@ ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
 echo "Update brew repositories"
 brew update
 
-# Install Oh My Posh
-if test ! $(which oh-my-posh); then
-    echo "Installing Oh My Posh"
-    if [ 'Darwin' = "$OS" ]; then
-        brew tap jandedobbeleer/oh-my-posh
-        brew install oh-my-posh
-    elif [ 'Linux' = "$OS" ]; then
-        sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-        sudo chmod +x /usr/local/bin/oh-my-posh
-    fi
-
-    echo 'eval "$(oh-my-posh --init --shell zsh --config '$DOTFILES'/shell/ohmyposh.json)"' >>$HOME/.zprofile
+# Install powerlevel10k
+if test ! $(which p10k); then
+    echo "Installing powerlevel10k theme"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
 # Install all our dependencies with bundle (See Brewfile)
