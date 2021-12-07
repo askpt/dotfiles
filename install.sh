@@ -13,33 +13,33 @@ ARCH=$(uname -m)
 echo "Setting up your machine - $OS $ARCH"
 
 # Check if git is installed
-if test ! $(which git); then
+if test ! "$(which git)"; then
     echo "Please install git"
     exit 1
 fi
 
 # Check if zsh is installed
-if test ! $(which zsh); then
+if test ! "$(which zsh)"; then
     echo "Please install zsh"
     exit 1
 fi
 
 # Check for Oh My Zsh and install if we don't have it
-if test ! $(which omz); then
+if test ! "$(which omz)"; then
     echo "Installing Oh My Zsh"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # Install powerlevel10k
-if test ! $(which p10k); then
+if test ! "$(which p10k)"; then
     echo "Installing powerlevel10k theme"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 fi
 
 # Install zsh plugins
-if test ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
+if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
     echo "Installing zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 fi
 
 # Grab path for Homebrew
@@ -55,22 +55,22 @@ else
 fi
 
 # Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
+if test ! "$(which brew)"; then
     echo "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    echo 'eval "$('$HOMEBREW_PATH' shellenv)"' >>$HOME/.zprofile
-    eval "$($HOMEBREW_PATH shellenv)"
+    echo 'eval "$('"$HOMEBREW_PATH"' shellenv)"' >>"$HOME"/.zprofile
+    eval "$("$HOMEBREW_PATH" shellenv)"
 fi
 
 # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
 echo "Creating symlink to .zshrc"
-rm -rf $HOME/.zshrc
-ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
+rm -rf "$HOME"/.zshrc
+ln -s "$HOME"/.dotfiles/shell/.zshrc "$HOME"/.zshrc
 
 echo "Creating symlink to .p10k.zsh"
-rm -rf $HOME/.p10k.zsh
-ln -s $HOME/.dotfiles/shell/.p10k.zsh $HOME/.p10k.zsh
+rm -rf "$HOME"/.p10k.zsh
+ln -s "$HOME"/.dotfiles/shell/.p10k.zsh "$HOME"/.p10k.zsh
 
 # Update Homebrew recipes
 echo "Update brew repositories"
@@ -81,20 +81,20 @@ echo "Install brew bundle"
 brew tap homebrew/bundle
 
 # General brew bundle
-brew bundle --file $DOTFILES/brew/brewfile
+brew bundle --file "$DOTFILES"/brew/brewfile
 
 # macOS specific installation
 if [ 'Darwin' = "$OS" ]; then
     # macOS specific brew bundle
-    brew bundle --file $DOTFILES/brew/osx.Brewfile
+    brew bundle --file "$DOTFILES"/brew/osx.Brewfile
 
     # Symlink the Mackup config file to the home directory
     echo "Creating symlink to Mackup config file"
-    ln -s $DOTFILES/.mackup.cfg $HOME/.mackup.cfg
+    ln -s "$DOTFILES"/.mackup.cfg "$HOME"/.mackup.cfg
 
     # Set macOS preferences - we will run this last because this will reload the shell
     echo "Setting macOS preferences"
-    source $DOTFILES/shell/.macos
+    source "$DOTFILES"/shell/.macos
 fi
 
 # Linux specific installation
@@ -112,7 +112,7 @@ if [ 'Linux' = "$OS" ]; then
 fi
 
 ## Enable local HTTPS for .NET Core
-if test $(which dotnet); then
+if test "$(which dotnet)"; then
     echo "Enabling local HTTPS for .NET Core"
     dotnet dev-certs https --trust
 fi
