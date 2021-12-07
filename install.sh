@@ -79,7 +79,7 @@ echo "Install brew bundle"
 brew tap homebrew/bundle
 
 # General brew bundle
-brew bundle --file $DOTFILES/brew/Brewfile
+brew bundle --file $DOTFILES/brew/brewfile
 
 # macOS specific installation
 if [ 'Darwin' = "$OS" ]; then
