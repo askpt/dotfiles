@@ -30,6 +30,12 @@ if test ! $(which omz); then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
+# Install powerlevel10k
+if test ! $(which p10k); then
+    echo "Installing powerlevel10k theme"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
     HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
@@ -56,23 +62,13 @@ echo "Creating symlink to .zshrc"
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
 
+echo "Creating symlink to .p10k.zsh"
+rm -rf $HOME/.p10k.zsh
+ln -s $HOME/.dotfiles/shell/.p10k.zsh $HOME/.p10k.zsh
+
 # Update Homebrew recipes
 echo "Update brew repositories"
 brew update
-
-# Install Oh My Posh
-if test ! $(which oh-my-posh); then
-    echo "Installing Oh My Posh"
-    if [ 'Darwin' = "$OS" ]; then
-        brew tap jandedobbeleer/oh-my-posh
-        brew install oh-my-posh
-    elif [ 'Linux' = "$OS" ]; then
-        sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-        sudo chmod +x /usr/local/bin/oh-my-posh
-    fi
-
-    echo 'eval "$(oh-my-posh --init --shell zsh --config '$DOTFILES'/shell/ohmyposh.json)"' >>$HOME/.zprofile
-fi
 
 # Install all our dependencies with bundle (See Brewfile)
 echo "Install brew bundle"
