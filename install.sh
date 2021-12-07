@@ -56,6 +56,10 @@ echo "Creating symlink to .zshrc"
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
 
+echo "Creating symlink to .p10k.zsh"
+rm -rf $HOME/.p10k.zsh
+ln -s $HOME/.dotfiles/shell/.p10k.zsh $HOME/.p10k.zsh
+
 # Update Homebrew recipes
 echo "Update brew repositories"
 brew update
