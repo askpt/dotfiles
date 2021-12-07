@@ -30,6 +30,12 @@ if test ! $(which omz); then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
+# Install powerlevel10k
+if test ! $(which p10k); then
+    echo "Installing powerlevel10k theme"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
     HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
@@ -63,12 +69,6 @@ ln -s $HOME/.dotfiles/shell/.p10k.zsh $HOME/.p10k.zsh
 # Update Homebrew recipes
 echo "Update brew repositories"
 brew update
-
-# Install powerlevel10k
-if test ! $(which p10k); then
-    echo "Installing powerlevel10k theme"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-fi
 
 # Install all our dependencies with bundle (See Brewfile)
 echo "Install brew bundle"
