@@ -42,6 +42,11 @@ if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 fi
 
+# Configure git
+echo "Configuring git"
+echo "Creating ~/.gitconfig.local"
+touch ~/.gitconfig.local
+
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
