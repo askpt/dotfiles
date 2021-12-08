@@ -42,23 +42,6 @@ if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 fi
 
-# Configure git
-echo "Configuring git"
-echo "Creating ~/.gitconfig.local"
-touch $HOME/.gitconfig.local
-
-echo "Creating symlink to .gitconfig"
-rm -rf "$HOME"/.gitconfig
-ln -s "$HOME"/.dotfiles/git/.gitconfig "$HOME"/.gitconfig
-
-echo "Creating symlink to .gitignore_global"
-rm -rf "$HOME"/.gitignore
-ln -s "$HOME"/.dotfiles/git/.gitignore "$HOME"/.gitignore
-
-echo "Creating symlink to .gitattributes"
-rm -rf "$HOME"/.gitattributes
-ln -s "$HOME"/.dotfiles/git/.gitattributes "$HOME"/.gitattributes
-
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
@@ -113,6 +96,23 @@ if [ 'Darwin' = "$OS" ]; then
   echo "Setting macOS preferences"
   source "$DOTFILES"/shell/.macos
 fi
+
+# Configure git
+echo "Configuring git"
+echo "Creating ~/.gitconfig.local"
+touch $HOME/.gitconfig.local
+
+echo "Creating symlink to .gitconfig"
+rm -rf "$HOME"/.gitconfig
+ln -s "$HOME"/.dotfiles/git/.gitconfig "$HOME"/.gitconfig
+
+echo "Creating symlink to .gitignore_global"
+rm -rf "$HOME"/.gitignore
+ln -s "$HOME"/.dotfiles/git/.gitignore "$HOME"/.gitignore
+
+echo "Creating symlink to .gitattributes"
+rm -rf "$HOME"/.gitattributes
+ln -s "$HOME"/.dotfiles/git/.gitattributes "$HOME"/.gitattributes
 
 # Linux specific installation
 if [ 'Linux' = "$OS" ]; then
