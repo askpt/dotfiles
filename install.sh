@@ -45,7 +45,19 @@ fi
 # Configure git
 echo "Configuring git"
 echo "Creating ~/.gitconfig.local"
-touch ~/.gitconfig.local
+touch $HOME/.gitconfig.local
+
+echo "Creating symlink to .gitconfig"
+rm -rf "$HOME"/.gitconfig
+ln -s "$HOME"/.dotfiles/git/.gitconfig "$HOME"/.gitconfig
+
+echo "Creating symlink to .gitignore_global"
+rm -rf "$HOME"/.gitignore
+ln -s "$HOME"/.dotfiles/git/.gitignore "$HOME"/.gitignore
+
+echo "Creating symlink to .gitattributes"
+rm -rf "$HOME"/.gitattributes
+ln -s "$HOME"/.dotfiles/git/.gitattributes "$HOME"/.gitattributes
 
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
