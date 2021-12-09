@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES=$HOME/.dotfiles
+DOTFILES="$PWD"
 
 OS=$(uname -s)
 # Linux = Linux
@@ -11,6 +11,18 @@ ARCH=$(uname -m)
 # arm64 = ARM
 
 echo "Setting up your machine - $OS $ARCH"
+
+# Grab path for Homebrew
+if [ 'Linux' = "$OS" ]; then
+  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
+  HOMEBREW_PATH=/usr/local/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+  HOMEBREW_PATH=/opt/homebrew/bin/brew
+else
+  echo "Unsupported OS/Arch combination"
+  exit 1
+fi
 
 # Check if git is installed
 if test ! "$(which git)"; then
@@ -42,16 +54,35 @@ if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 fi
 
-# Grab path for Homebrew
-if [ 'Linux' = "$OS" ]; then
-  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
-  HOMEBREW_PATH=/usr/local/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
-  HOMEBREW_PATH=/opt/homebrew/bin/brew
-else
-  echo "Unsupported OS/Arch combination"
-  exit 1
+# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the dotfiles
+echo "Creating symlink to .zshrc"
+rm -rf "$HOME"/.zshrc
+ln -s "$DOTFILES"/shell/.zshrc "$HOME"/.zshrc
+
+echo "Creating symlink to .p10k.zsh"
+rm -rf "$HOME"/.p10k.zsh
+ln -s "$DOTFILES"/shell/.p10k.zsh "$HOME"/.p10k.zsh
+
+# Configure git
+echo "Configuring git"
+echo "Creating ~/.gitconfig.local"
+touch "$HOME"/.gitconfig.local
+
+echo "Creating symlink to .gitconfig"
+rm -rf "$HOME"/.gitconfig
+ln -s "$DOTFILES"/git/.gitconfig "$HOME"/.gitconfig
+
+echo "Creating symlink to .gitignore_global"
+rm -rf "$HOME"/.gitignore
+ln -s "$DOTFILES"/git/.gitignore "$HOME"/.gitignore
+
+echo "Creating symlink to .gitattributes"
+rm -rf "$HOME"/.gitattributes
+ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
+
+# Check if it's a codespace
+if test ! "$CODESPACES"; then
+  exit 0
 fi
 
 # Check for Homebrew and install if we don't have it
@@ -62,15 +93,6 @@ if test ! "$(which brew)"; then
   echo 'eval "$('"$HOMEBREW_PATH"' shellenv)"' >>"$HOME"/.zprofile
   eval "$("$HOMEBREW_PATH" shellenv)"
 fi
-
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
-echo "Creating symlink to .zshrc"
-rm -rf "$HOME"/.zshrc
-ln -s "$HOME"/.dotfiles/shell/.zshrc "$HOME"/.zshrc
-
-echo "Creating symlink to .p10k.zsh"
-rm -rf "$HOME"/.p10k.zsh
-ln -s "$HOME"/.dotfiles/shell/.p10k.zsh "$HOME"/.p10k.zsh
 
 # Update Homebrew recipes
 echo "Update brew repositories"
@@ -96,23 +118,6 @@ if [ 'Darwin' = "$OS" ]; then
   echo "Setting macOS preferences"
   source "$DOTFILES"/shell/.macos
 fi
-
-# Configure git
-echo "Configuring git"
-echo "Creating ~/.gitconfig.local"
-touch "$HOME"/.gitconfig.local
-
-echo "Creating symlink to .gitconfig"
-rm -rf "$HOME"/.gitconfig
-ln -s "$HOME"/.dotfiles/git/.gitconfig "$HOME"/.gitconfig
-
-echo "Creating symlink to .gitignore_global"
-rm -rf "$HOME"/.gitignore
-ln -s "$HOME"/.dotfiles/git/.gitignore "$HOME"/.gitignore
-
-echo "Creating symlink to .gitattributes"
-rm -rf "$HOME"/.gitattributes
-ln -s "$HOME"/.dotfiles/git/.gitattributes "$HOME"/.gitattributes
 
 # Linux specific installation
 if [ 'Linux' = "$OS" ]; then
