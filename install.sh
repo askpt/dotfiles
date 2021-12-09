@@ -81,7 +81,7 @@ rm -rf "$HOME"/.gitattributes
 ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 # Check if it's a codespace
-if [[ ! -v CODESPACES ]]; then
+if test ! -v CODESPACES; then
   exit 0
 fi
 
