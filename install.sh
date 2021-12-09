@@ -82,6 +82,7 @@ ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 # Check if it's a codespace
 if test ! "$($CODESPACES)"; then
+  echo "Completed successfully"
   exit 0
 fi
 
