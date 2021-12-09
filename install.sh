@@ -100,7 +100,7 @@ fi
 # Configure git
 echo "Configuring git"
 echo "Creating ~/.gitconfig.local"
-touch $HOME/.gitconfig.local
+touch "$HOME"/.gitconfig.local
 
 echo "Creating symlink to .gitconfig"
 rm -rf "$HOME"/.gitconfig
