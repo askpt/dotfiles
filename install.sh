@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES="$(pwd)"
+DOTFILES="$PWD"
 
 OS=$(uname -s)
 # Linux = Linux
