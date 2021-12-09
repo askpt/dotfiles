@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES=$HOME/.dotfiles
+DOTFILES=$(pwd)
 
 OS=$(uname -s)
 # Linux = Linux
@@ -63,14 +63,14 @@ if test ! "$(which brew)"; then
   eval "$("$HOMEBREW_PATH" shellenv)"
 fi
 
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
+# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the dotfiles
 echo "Creating symlink to .zshrc"
 rm -rf "$HOME"/.zshrc
-ln -s "$HOME"/.dotfiles/shell/.zshrc "$HOME"/.zshrc
+ln -s "$DOTFILES"/shell/.zshrc "$HOME"/.zshrc
 
 echo "Creating symlink to .p10k.zsh"
 rm -rf "$HOME"/.p10k.zsh
-ln -s "$HOME"/.dotfiles/shell/.p10k.zsh "$HOME"/.p10k.zsh
+ln -s "$DOTFILES"/shell/.p10k.zsh "$HOME"/.p10k.zsh
 
 # Update Homebrew recipes
 echo "Update brew repositories"
@@ -104,15 +104,15 @@ touch "$HOME"/.gitconfig.local
 
 echo "Creating symlink to .gitconfig"
 rm -rf "$HOME"/.gitconfig
-ln -s "$HOME"/.dotfiles/git/.gitconfig "$HOME"/.gitconfig
+ln -s "$DOTFILES"/git/.gitconfig "$HOME"/.gitconfig
 
 echo "Creating symlink to .gitignore_global"
 rm -rf "$HOME"/.gitignore
-ln -s "$HOME"/.dotfiles/git/.gitignore "$HOME"/.gitignore
+ln -s "$DOTFILES"/git/.gitignore "$HOME"/.gitignore
 
 echo "Creating symlink to .gitattributes"
 rm -rf "$HOME"/.gitattributes
-ln -s "$HOME"/.dotfiles/git/.gitattributes "$HOME"/.gitattributes
+ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 # Linux specific installation
 if [ 'Linux' = "$OS" ]; then
