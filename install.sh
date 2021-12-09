@@ -12,6 +12,18 @@ ARCH=$(uname -m)
 
 echo "Setting up your machine - $OS $ARCH"
 
+# Grab path for Homebrew
+if [ 'Linux' = "$OS" ]; then
+  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
+  HOMEBREW_PATH=/usr/local/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+  HOMEBREW_PATH=/opt/homebrew/bin/brew
+else
+  echo "Unsupported OS/Arch combination"
+  exit 1
+fi
+
 # Check if git is installed
 if test ! "$(which git)"; then
   echo "Please install git"
@@ -68,16 +80,9 @@ echo "Creating symlink to .gitattributes"
 rm -rf "$HOME"/.gitattributes
 ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
-# Grab path for Homebrew
-if [ 'Linux' = "$OS" ]; then
-  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
-  HOMEBREW_PATH=/usr/local/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
-  HOMEBREW_PATH=/opt/homebrew/bin/brew
-else
-  echo "Unsupported OS/Arch combination"
-  exit 1
+# Check if it's a codespace
+if [[ ! -v CODESPACES ]]; then
+  exit 0
 fi
 
 # Check for Homebrew and install if we don't have it
