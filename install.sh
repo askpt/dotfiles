@@ -42,6 +42,32 @@ if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 fi
 
+# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the dotfiles
+echo "Creating symlink to .zshrc"
+rm -rf "$HOME"/.zshrc
+ln -s "$DOTFILES"/shell/.zshrc "$HOME"/.zshrc
+
+echo "Creating symlink to .p10k.zsh"
+rm -rf "$HOME"/.p10k.zsh
+ln -s "$DOTFILES"/shell/.p10k.zsh "$HOME"/.p10k.zsh
+
+# Configure git
+echo "Configuring git"
+echo "Creating ~/.gitconfig.local"
+touch "$HOME"/.gitconfig.local
+
+echo "Creating symlink to .gitconfig"
+rm -rf "$HOME"/.gitconfig
+ln -s "$DOTFILES"/git/.gitconfig "$HOME"/.gitconfig
+
+echo "Creating symlink to .gitignore_global"
+rm -rf "$HOME"/.gitignore
+ln -s "$DOTFILES"/git/.gitignore "$HOME"/.gitignore
+
+echo "Creating symlink to .gitattributes"
+rm -rf "$HOME"/.gitattributes
+ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
+
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
@@ -62,15 +88,6 @@ if test ! "$(which brew)"; then
   echo 'eval "$('"$HOMEBREW_PATH"' shellenv)"' >>"$HOME"/.zprofile
   eval "$("$HOMEBREW_PATH" shellenv)"
 fi
-
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the dotfiles
-echo "Creating symlink to .zshrc"
-rm -rf "$HOME"/.zshrc
-ln -s "$DOTFILES"/shell/.zshrc "$HOME"/.zshrc
-
-echo "Creating symlink to .p10k.zsh"
-rm -rf "$HOME"/.p10k.zsh
-ln -s "$DOTFILES"/shell/.p10k.zsh "$HOME"/.p10k.zsh
 
 # Update Homebrew recipes
 echo "Update brew repositories"
@@ -96,23 +113,6 @@ if [ 'Darwin' = "$OS" ]; then
   echo "Setting macOS preferences"
   source "$DOTFILES"/shell/.macos
 fi
-
-# Configure git
-echo "Configuring git"
-echo "Creating ~/.gitconfig.local"
-touch "$HOME"/.gitconfig.local
-
-echo "Creating symlink to .gitconfig"
-rm -rf "$HOME"/.gitconfig
-ln -s "$DOTFILES"/git/.gitconfig "$HOME"/.gitconfig
-
-echo "Creating symlink to .gitignore_global"
-rm -rf "$HOME"/.gitignore
-ln -s "$DOTFILES"/git/.gitignore "$HOME"/.gitignore
-
-echo "Creating symlink to .gitattributes"
-rm -rf "$HOME"/.gitattributes
-ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 # Linux specific installation
 if [ 'Linux' = "$OS" ]; then
