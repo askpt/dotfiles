@@ -2,7 +2,7 @@
 
 DOTFILES="$PWD"
 
-OS=$(uname -s)
+OS="$(uname -s)"
 # Linux = Linux
 # Darwin = macOS
 
@@ -13,11 +13,15 @@ ARCH=$(uname -m)
 echo "Setting up your machine - $OS $ARCH"
 
 # Grab path for Homebrew
-if [ 'Linux' = "$OS" ]; then
+if [ 'Linux' = $OS ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
+elif
+  [ 'Darwin' = $OS ] && [ 'x86_64' = $ARCH ]
+then
   HOMEBREW_PATH=/usr/local/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+elif
+  [ 'Darwin' = $OS ] && [ 'arm64' = $ARCH ]
+then
   HOMEBREW_PATH=/opt/homebrew/bin/brew
 else
   echo "Unsupported OS/Arch combination"
