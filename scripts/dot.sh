@@ -8,16 +8,24 @@ OS=$(uname -s)
 # Linux = Linux
 # Darwin = macOS
 
+if [ 'Linux' = "$OS" ]; then
+  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
+  HOMEBREW_PATH=/usr/local/bin/brew
+elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+  HOMEBREW_PATH=/opt/homebrew/bin/brew
+fi
+
 sub_help() {
   echo "Usage: $BIN_NAME <command>"
   echo
   echo "Commands:"
-  echo "   clean            Clean up caches (brew, gem)"
+  echo "   clean            Clean up caches (brew)"
   # echo "   dock             Apply macOS Dock settings"
   # echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE) and Git GUI ($DOTFILES_GIT_GUI)"
   echo "   help             This help message"
   # echo "   macos            Apply macOS system defaults"
-  echo "   update           Update packages and pkg managers (OS, brew, npm, gem)"
+  echo "   update           Update packages and pkg managers (OS, brew, npm)"
 }
 
 # sub_edit() {
@@ -32,13 +40,13 @@ sub_update() {
   brew cleanup
   # npm install npm -g
   # npm update -g
-  # gem update --system
-  # gem update
 }
 
 sub_clean() {
-  brew cleanup
-  # gem cleanup
+  if test ! -d "$HOMEBREW_PATH"; then
+  else
+    brew cleanup
+  fi
 }
 
 # sub_macos() {
