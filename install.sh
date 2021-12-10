@@ -81,7 +81,7 @@ rm -rf "$HOME"/.gitattributes
 ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 echo "Adding custom scripts"
-echo 'alias dot="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
+echo 'alias dot.sh="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
 
 # Check if it's a codespace
 if test ! "$("$CODESPACES")"; then
