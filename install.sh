@@ -84,7 +84,7 @@ echo "Adding custom scripts"
 echo 'alias dot.sh="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
 
 # Check if it's a codespace
-if test ! "$("$CODESPACES")"; then
+if test ! $($CODESPACES); then
   echo "Completed successfully"
   exit 0
 fi
