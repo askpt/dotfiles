@@ -43,8 +43,7 @@ sub_update() {
 }
 
 sub_clean() {
-  if test ! -d "$HOMEBREW_PATH"; then
-  else
+  if -d "$HOMEBREW_PATH"; then
     brew cleanup
   fi
 }
