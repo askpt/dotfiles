@@ -109,7 +109,7 @@ brew bundle --file "$DOTFILES"/brew/brewfile
 # macOS specific installation
 if [ 'Darwin' = "$OS" ]; then
   # macOS specific brew bundle
-  brew bundle --file "$DOTFILES"/brew/osx.Brewfile
+  brew bundle --file "$DOTFILES"/brew/osx.brewfile
 
   # Symlink the Mackup config file to the home directory
   echo "Creating symlink to Mackup config file"
