@@ -17,14 +17,14 @@ else
 fi
 
 # Grab path for Homebrew
-if [ 'Linux' = $OS ]; then
+if [ 'Linux' = "$OS" ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
 elif
-  [ 'Darwin' = $OS ] && [ 'x86_64' = $ARCH ]
+  [ 'Darwin' = "$OS" ] && [ 'x86_64' = "$ARCH" ]
 then
   HOMEBREW_PATH=/usr/local/bin/brew
 elif
-  [ 'Darwin' = $OS ] && [ 'arm64' = $ARCH ]
+  [ 'Darwin' = "$OS" ] && [ 'arm64' = "$ARCH" ]
 then
   HOMEBREW_PATH=/opt/homebrew/bin/brew
 else
@@ -90,7 +90,7 @@ ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
 echo "Adding custom scripts"
 echo 'DOTFILES_PATH="$PWD"' >>"$HOME"/.zprofile
-echo 'alias dot.sh="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
+echo 'alias dot.sh="'"$PWD"'/scripts/dot.sh"' >>"$HOME"/.zprofile
 
 # Check if it's a codespace
 if [ -n "$CODESPACES" ]; then
