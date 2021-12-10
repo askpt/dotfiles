@@ -76,16 +76,16 @@ sub_clean() {
 # }
 
 case $COMMAND_NAME in
-"" | "-h" | "--help")
-  sub_help
-  ;;
-*)
-  shift
-  sub_"$COMMAND_NAME" "$@"
-  if [ $? = 127 ]; then
-    echo "'$COMMAND_NAME' is not a known command or has errors." >&2
+  "" | "-h" | "--help")
     sub_help
-    exit 1
-  fi
-  ;;
+    ;;
+  *)
+    shift
+    sub_"$COMMAND_NAME" "$@"
+    if [ $? = 127 ]; then
+      echo "'$COMMAND_NAME' is not a known command or has errors." >&2
+      sub_help
+      exit 1
+    fi
+    ;;
 esac
