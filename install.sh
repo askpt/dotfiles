@@ -10,7 +10,11 @@ ARCH=$(uname -m)
 # x86_64 = 64-bit
 # arm64 = ARM
 
-echo "Setting up your machine - $OS $ARCH"
+if [ -n "$CODESPACES" ]; then
+  echo "Setting up your codespace - $OS $ARCH"
+else
+  echo "Setting up your machine - $OS $ARCH"
+fi
 
 # Grab path for Homebrew
 if [ 'Linux' = $OS ]; then
@@ -89,7 +93,7 @@ echo 'DOTFILES_PATH="$PWD"' >>"$HOME"/.zprofile
 echo 'alias dot.sh="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
 
 # Check if it's a codespace
-if [ -n $CODESPACES ]; then
+if [ -n "$CODESPACES" ]; then
   echo "Completed successfully"
   exit 0
 fi
