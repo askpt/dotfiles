@@ -2,7 +2,7 @@
 
 DOTFILES="$PWD"
 
-OS=$(uname -s)
+OS="$(uname -s)"
 # Linux = Linux
 # Darwin = macOS
 
@@ -10,14 +10,22 @@ ARCH=$(uname -m)
 # x86_64 = 64-bit
 # arm64 = ARM
 
-echo "Setting up your machine - $OS $ARCH"
+if [ -n "$CODESPACES" ]; then
+  echo "Setting up your codespace - $OS $ARCH"
+else
+  echo "Setting up your machine - $OS $ARCH"
+fi
 
 # Grab path for Homebrew
 if [ 'Linux' = "$OS" ]; then
   HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'x86_64' = ARCH ]; then
+elif
+  [ 'Darwin' = "$OS" ] && [ 'x86_64' = "$ARCH" ]
+then
   HOMEBREW_PATH=/usr/local/bin/brew
-elif [ 'Darwin' = "$OS" ] && [ 'arm64' = ARCH ]; then
+elif
+  [ 'Darwin' = "$OS" ] && [ 'arm64' = "$ARCH" ]
+then
   HOMEBREW_PATH=/opt/homebrew/bin/brew
 else
   echo "Unsupported OS/Arch combination"
@@ -37,13 +45,13 @@ if test ! "$(which zsh)"; then
 fi
 
 # Check for Oh My Zsh and install if we don't have it
-if test ! "$(which omz)"; then
+if test ! -d "$HOME"/.oh-my-zsh/; then
   echo "Installing Oh My Zsh"
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # Install powerlevel10k
-if test ! "$(which p10k)"; then
+if test ! -d "$HOME"/.oh-my-zsh/custom/themes/powerlevel10k/; then
   echo "Installing powerlevel10k theme"
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 fi
@@ -80,14 +88,18 @@ echo "Creating symlink to .gitattributes"
 rm -rf "$HOME"/.gitattributes
 ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
 
+echo "Adding custom scripts"
+echo 'DOTFILES_PATH="$PWD"' >>"$HOME"/.zprofile
+echo 'alias dot.sh="'"$PWD"'/scripts/dot.sh"' >>"$HOME"/.zprofile
+
 # Check if it's a codespace
-if test ! "$("$CODESPACES")"; then
+if [ -n "$CODESPACES" ]; then
   echo "Completed successfully"
   exit 0
 fi
 
 # Check for Homebrew and install if we don't have it
-if test ! "$(which brew)"; then
+if test ! -d "$HOMEBREW_PATH"; then
   echo "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
