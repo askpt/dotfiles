@@ -37,13 +37,13 @@ if test ! "$(which zsh)"; then
 fi
 
 # Check for Oh My Zsh and install if we don't have it
-if test ! "$(which omz)"; then
+if test ! -d "$HOME"/.oh-my-zsh/; then
   echo "Installing Oh My Zsh"
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # Install powerlevel10k
-if test ! "$(which p10k)"; then
+if test ! -d "$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k/; then
   echo "Installing powerlevel10k theme"
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 fi
@@ -90,7 +90,7 @@ if test ! $($CODESPACES); then
 fi
 
 # Check for Homebrew and install if we don't have it
-if test ! "$(which brew)"; then
+if test ! -d "$HOMEBREW_PATH"; then
   echo "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
