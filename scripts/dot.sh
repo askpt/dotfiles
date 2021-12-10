@@ -51,7 +51,7 @@ sub_update() {
   fi
 
   # Update npm
-  if [ -d "$(which npm)"]; then
+  if [ -d "$(which npm)" ]; then
     npm install npm -g
     npm update -g
   fi
