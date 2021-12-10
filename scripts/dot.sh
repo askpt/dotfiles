@@ -34,16 +34,29 @@ sub_help() {
 # }
 
 sub_update() {
-  sudo softwareupdate -i -a
-  brew update
-  brew upgrade
-  brew cleanup
+  # Update OS
+  if [ 'Darwin' = "$OS" ]; then
+    sudo softwareupdate -i -a
+  fi
+  if [ 'Linux' = "$OS" ]; then
+    sudo apt update
+    sudo apt upgrade -y
+  fi
+
+  # Update brew
+  if [ -d "$HOMEBREW_PATH" ]; then
+    brew update
+    brew upgrade
+    brew cleanup
+  fi
+
   # npm install npm -g
   # npm update -g
 }
 
 sub_clean() {
-  if -d "$HOMEBREW_PATH"; then
+  # Clean brew
+  if [ -d "$HOMEBREW_PATH" ]; then
     brew cleanup
   fi
 }
