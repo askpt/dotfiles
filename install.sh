@@ -85,7 +85,7 @@ echo 'DOTFILES_PATH="$PWD"' >>"$HOME"/.zprofile
 echo 'alias dot.sh="'$PWD'/scripts/dot.sh"' >>"$HOME"/.zprofile
 
 # Check if it's a codespace
-if [[ "$CODESPACES" == "true" ]]; then
+if [ -n "$CODESPACES" ]; then
   echo "Completed successfully"
   exit 0
 fi
