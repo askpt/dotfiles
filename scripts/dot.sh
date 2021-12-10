@@ -50,8 +50,11 @@ sub_update() {
     brew cleanup
   fi
 
-  # npm install npm -g
-  # npm update -g
+  # Update npm
+  if [ -d "$(which npm)"]; then
+    npm install npm -g
+    npm update -g
+  fi
 }
 
 sub_clean() {
