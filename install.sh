@@ -1,153 +1,23 @@
 #!/bin/sh
 
-DOTFILES="$PWD"
+set -e # -e: exit on error
 
-OS="$(uname -s)"
-# Linux = Linux
-# Darwin = macOS
-
-ARCH=$(uname -m)
-# x86_64 = 64-bit
-# arm64 = ARM
-
-if [ -n "$CODESPACES" ]; then
-  echo "Setting up your codespace - $OS $ARCH"
+if [ ! "$(command -v chezmoi)" ]; then
+  bin_dir="$HOME/.local/bin"
+  chezmoi="$bin_dir/chezmoi"
+  if [ "$(command -v curl)" ]; then
+    sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b "$bin_dir"
+  elif [ "$(command -v wget)" ]; then
+    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b "$bin_dir"
+  else
+    echo "To install chezmoi, you must have curl or wget installed." >&2
+    exit 1
+  fi
 else
-  echo "Setting up your machine - $OS $ARCH"
+  chezmoi=chezmoi
 fi
 
-# Grab path for Homebrew
-if [ 'Linux' = "$OS" ]; then
-  HOMEBREW_PATH=/home/linuxbrew/.linuxbrew/bin/brew
-elif
-  [ 'Darwin' = "$OS" ] && [ 'x86_64' = "$ARCH" ]
-then
-  HOMEBREW_PATH=/usr/local/bin/brew
-elif
-  [ 'Darwin' = "$OS" ] && [ 'arm64' = "$ARCH" ]
-then
-  HOMEBREW_PATH=/opt/homebrew/bin/brew
-else
-  echo "Unsupported OS/Arch combination"
-  exit 1
-fi
-
-# Check if git is installed
-if test ! "$(which git)"; then
-  echo "Please install git"
-  exit 1
-fi
-
-# Check if zsh is installed
-if test ! "$(which zsh)"; then
-  echo "Please install zsh"
-  exit 1
-fi
-
-# Check for Oh My Zsh and install if we don't have it
-if test ! -d "$HOME"/.oh-my-zsh/; then
-  echo "Installing Oh My Zsh"
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
-# Install powerlevel10k
-if test ! -d "$HOME"/.oh-my-zsh/custom/themes/powerlevel10k/; then
-  echo "Installing powerlevel10k theme"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
-fi
-
-# Install zsh plugins
-if test ! -d "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
-  echo "Installing zsh-autosuggestions"
-  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-fi
-
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the dotfiles
-echo "Creating symlink to .zshrc"
-rm -rf "$HOME"/.zshrc
-ln -s "$DOTFILES"/shell/.zshrc "$HOME"/.zshrc
-
-echo "Creating symlink to .p10k.zsh"
-rm -rf "$HOME"/.p10k.zsh
-ln -s "$DOTFILES"/shell/.p10k.zsh "$HOME"/.p10k.zsh
-
-# Configure git
-echo "Configuring git"
-echo "Creating ~/.gitconfig.local"
-touch "$HOME"/.gitconfig.local
-
-echo "Creating symlink to .gitconfig"
-rm -rf "$HOME"/.gitconfig
-ln -s "$DOTFILES"/git/.gitconfig "$HOME"/.gitconfig
-
-echo "Creating symlink to .gitignore_global"
-rm -rf "$HOME"/.gitignore
-ln -s "$DOTFILES"/git/.gitignore "$HOME"/.gitignore
-
-echo "Creating symlink to .gitattributes"
-rm -rf "$HOME"/.gitattributes
-ln -s "$DOTFILES"/git/.gitattributes "$HOME"/.gitattributes
-
-echo "Adding custom scripts"
-echo 'DOTFILES_PATH="'"$PWD"'"' >>"$HOME"/.zprofile
-echo 'alias dot.sh="'"$PWD"'/scripts/dot.sh"' >>"$HOME"/.zprofile
-
-# Check if it's a codespace
-if [ -n "$CODESPACES" ]; then
-  echo "Completed successfully"
-  exit 0
-fi
-
-# Check for Homebrew and install if we don't have it
-if test ! -d "$HOMEBREW_PATH"; then
-  echo "Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-  echo 'eval "$('"$HOMEBREW_PATH"' shellenv)"' >>"$HOME"/.zprofile
-  eval "$("$HOMEBREW_PATH" shellenv)"
-fi
-
-# Update Homebrew recipes
-echo "Update brew repositories"
-brew update
-
-# Install all our dependencies with bundle (See Brewfile)
-echo "Install brew bundle"
-brew tap homebrew/bundle
-
-# General brew bundle
-brew bundle --file "$DOTFILES"/brew/brewfile
-
-# macOS specific installation
-if [ 'Darwin' = "$OS" ]; then
-  # macOS specific brew bundle
-  brew bundle --file "$DOTFILES"/brew/osx.brewfile
-
-  # Symlink the Mackup config file to the home directory
-  echo "Creating symlink to Mackup config file"
-  ln -s "$DOTFILES"/.mackup.cfg "$HOME"/.mackup.cfg
-
-  # Set macOS preferences - we will run this last because this will reload the shell
-  echo "Setting macOS preferences"
-  source "$DOTFILES"/shell/.macos
-fi
-
-# Linux specific installation
-if [ 'Linux' = "$OS" ]; then
-  # install dotnet
-  echo "Installing dotnet"
-  wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-  sudo dpkg -i packages-microsoft-prod.deb
-  rm packages-microsoft-prod.deb
-
-  sudo apt-get update
-  sudo apt-get install -y apt-transport-https &&
-    sudo apt-get update &&
-    sudo apt-get install -y dotnet-sdk-6.0
-fi
-
-## Enable local HTTPS for .NET Core
-if test "$(which dotnet)"; then
-  echo "Enabling local HTTPS for .NET Core"
-  dotnet dev-certs https --trust
-fi
+# POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
+script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+# exec: replace current process with chezmoi init
+exec "$chezmoi" init --apply "--source=$script_dir"
