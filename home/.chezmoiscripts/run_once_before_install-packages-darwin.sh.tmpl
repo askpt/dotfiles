@@ -1,0 +1,73 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Update Homebrew recipes
+echo "Update brew repositories"
+brew update
+
+# Install all our dependencies with bundle (See Brewfile)
+echo "Install brew bundle"
+brew tap homebrew/bundle
+
+{{ $taps := list
+      "homebrew/cask"
+      "homebrew/cask-fonts"
+      "homebrew/cask-versions"
+      "homebrew/bundle"
+      "nicoverbruggen/homebrew-cask" -}}
+
+{{ $brews := list
+     "bash"
+     "gh"
+     "git"
+     "gnupg"
+     "grep"
+     "node"
+     "yarn"
+     "coreutils"
+     "mackup"
+     "awscli"
+     "azure-cli"
+     "pkg-config" -}}
+
+{{ $casks := list
+     "docker"
+     "gpg-suite"
+     "signal"
+     "slack"
+     "visual-studio-code"
+     "dotnet-sdk"
+     "dotnet"
+     "microsoft-teams"
+     "jetbrains-toolbox"
+     "microsoft-edge"
+     "visual-studio" -}}
+
+{{ $fonts := list
+     "font-lato"
+     "font-open-sans"
+     "font-roboto"
+     "font-source-code-pro-for-powerline"
+     "font-source-code-pro"
+     "font-source-sans-pro"
+     "font-source-serif-pro" -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range ($fonts | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}
