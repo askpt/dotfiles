@@ -6,7 +6,7 @@ eval "$(/usr/local/bin/brew shellenv)"
 {{   end -}}
 {{ end -}}
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "linux" -}}
 {{   if stat "/home/linuxbrew/.linuxbrew/bin/brew" -}}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{   end -}}
