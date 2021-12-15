@@ -1,5 +1,7 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
+# install zsh
+sudo apt install zsh
 chsh -s /usr/bin/zsh
 {{ end -}}
