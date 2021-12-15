@@ -187,9 +187,9 @@ gpgsign = true
 
 [core]
 abbrev = 12
-attributesFile = ~/.gitattributes
+attributesFile = ~/.config/git/attributes
 autocrlf = input
-excludesFile = ~/.gitignore
+excludesFile = ~/.config/git/ignore
 
 [help]
 # If a command is mistyped, make Git automatically
@@ -217,6 +217,8 @@ useConfigOnly = true
 #
 # See also: https://github.com/alrra/dotfiles#gitconfiglocal
 # add name, email, signingkey, to ~/.gitconfig.local
+name={{ .name }}
+email={{ .email }}
 
 [include]
 # Load local configs.

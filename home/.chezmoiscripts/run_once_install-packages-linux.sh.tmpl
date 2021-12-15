@@ -1,0 +1,7 @@
+{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+#!/bin/bash
+
+# install ZSH
+sudo apt install zsh
+chsh -s /usr/bin/zsh
+{{ end -}}
