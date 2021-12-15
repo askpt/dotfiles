@@ -1,0 +1,11 @@
+.github/
+brew/
+docker/
+git/
+mackup/
+shell/
+scripts/
+install.sh
+README.md
+.editorconfig
+.gitignore
