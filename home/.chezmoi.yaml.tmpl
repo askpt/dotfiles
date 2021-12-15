@@ -1,0 +1,13 @@
+{{/* detect GitHub codespaces, VSCode remote containers, Docker containers, and Vagrant boxes */}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "vagrant" "vscode") -}}
+{{-   $codespaces = false -}}
+{{- end -}}
+
+{{- $name := "André Silva" -}}
+{{- $email := "2493377+askpt@users.noreply.github.com" -}}
+
+sourceDir: "{{ .chezmoi.sourceDir }}"
+
+data:
+  name: "{{ $name }}"
+  email: "{{ $email }}"
