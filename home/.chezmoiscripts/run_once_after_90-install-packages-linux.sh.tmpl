@@ -1,0 +1,44 @@
+{{- if (and (eq .chezmoi.os "linux") (eq .codespaces "false")) -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+# install ZSH
+sudo apt install zsh
+chsh -s /usr/bin/zsh
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Update Homebrew recipes
+echo "Update brew repositories"
+brew update
+
+# Install all our dependencies with bundle (See Brewfile)
+echo "Install brew bundle"
+brew tap homebrew/bundle
+
+{{ $taps := list
+      "homebrew/bundle" -}}
+
+{{ $brews := list
+     "bash"
+     "gh"
+     "git"
+     "gnupg"
+     "grep"
+     "node"
+     "yarn"
+     "awscli"
+     "azure-cli" -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}
