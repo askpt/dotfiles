@@ -1,6 +1,8 @@
+{{- $codespaces := false -}}
+
 {{/* detect GitHub codespaces, VSCode remote containers, Docker containers, and Vagrant boxes */}}
 {{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") -}}
-{{-   $codespaces := true -}}
+{{-   $codespaces = true -}}
 {{- end -}}
 
 {{- $name := "André Silva" -}}
