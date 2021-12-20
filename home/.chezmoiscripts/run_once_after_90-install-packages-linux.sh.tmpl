@@ -15,6 +15,12 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 echo "Update brew repositories"
 brew update
 
+# Install dependencies
+sudo apt-get install build-essential
+
+# Install gcc
+brew install gcc
+
 # Install all our dependencies with bundle (See Brewfile)
 echo "Install brew bundle"
 brew tap homebrew/bundle
