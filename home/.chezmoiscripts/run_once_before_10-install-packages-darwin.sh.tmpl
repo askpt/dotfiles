@@ -59,10 +59,8 @@ brew tap homebrew/bundle
      "font-lato"
      "font-open-sans"
      "font-roboto"
-     "font-source-code-pro-for-powerline"
-     "font-source-code-pro"
-     "font-source-sans-pro"
-     "font-source-serif-pro" -}}
+     "font-meslo-lg-nerd-font"
+     "font-meslo-for-powerline" -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
