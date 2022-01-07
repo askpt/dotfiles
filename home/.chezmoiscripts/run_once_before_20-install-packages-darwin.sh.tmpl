@@ -3,16 +3,6 @@
 
 set -eufo pipefail
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-{{ if eq .chezmoi.os "darwin" -}}
-{{   if stat "/opt/homebrew/bin/brew" -}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{   else if stat "/usr/local/bin/brew" -}}
-eval "$(/usr/local/bin/brew shellenv)"
-{{   end -}}
-{{ end -}}
-
 # Update Homebrew recipes
 echo "Update brew repositories"
 brew update
@@ -26,6 +16,7 @@ brew tap homebrew/bundle
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/bundle"
+      "homebrew/cask-drivers"
       "nicoverbruggen/homebrew-cask" -}}
 
 {{ $brews := list
@@ -47,7 +38,6 @@ brew tap homebrew/bundle
 {{ $casks := list
      "docker"
      "gpg-suite"
-     "logitech-options"
      "slack"
      "visual-studio-code"
      "dotnet-sdk"
@@ -62,6 +52,9 @@ brew tap homebrew/bundle
      "font-roboto"
      "font-meslo-lg-nerd-font"
      "font-meslo-for-powerline" -}}
+     
+{{ $drivers := list
+     "logitech-options" -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
@@ -74,6 +67,9 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end -}}
 {{ range ($fonts | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range ($drivers | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
 EOF
