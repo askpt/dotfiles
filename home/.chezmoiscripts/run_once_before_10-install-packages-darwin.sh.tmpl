@@ -26,6 +26,7 @@ brew tap homebrew/bundle
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/bundle"
+      "homebrew/cask-drivers"
       "nicoverbruggen/homebrew-cask" -}}
 
 {{ $brews := list
@@ -47,7 +48,6 @@ brew tap homebrew/bundle
 {{ $casks := list
      "docker"
      "gpg-suite"
-     "logitech-options"
      "slack"
      "visual-studio-code"
      "dotnet-sdk"
@@ -62,6 +62,9 @@ brew tap homebrew/bundle
      "font-roboto"
      "font-meslo-lg-nerd-font"
      "font-meslo-for-powerline" -}}
+     
+{{ $drivers := list
+     "logitech-options" -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
@@ -74,6 +77,9 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end -}}
 {{ range ($fonts | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range ($drivers | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
 EOF
