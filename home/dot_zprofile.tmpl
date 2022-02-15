@@ -1,3 +1,4 @@
+# Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 {{   if stat "/opt/homebrew/bin/brew" -}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -12,6 +13,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{   end -}}
 {{ end -}}
 
+# .NET Tools and SDK
 {{ if eq .chezmoi.os "linux" -}}
 export PATH=$PATH:$HOME/.dotnet
 export DOTNET_ROOT=$HOME/.dotnet
@@ -19,3 +21,8 @@ export DOTNET_ROOT=$HOME/.dotnet
 
 # Add .NET SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
+
+# Python tools
+{{ if eq .chezmoi.os "darwin" -}}
+export PATH="$PATH:/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin"
+{{ end -}}
