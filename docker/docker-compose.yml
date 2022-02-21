@@ -47,8 +47,8 @@ services:
     image: datalust/seq:latest
     restart: always
     ports:
-      - "5342:5342"
-      - "5341:80"
+      - "5342:80"
+      - "5341:5341"
     volumes:
       - seqData:/data
     environment:
