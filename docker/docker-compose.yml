@@ -1,39 +1,39 @@
 version: "3.3"
 
 services:
-  smtp4dev:
-    image: rnwood/smtp4dev:latest
-    restart: always
-    ports:
-      - "8025:80"
-      - "1025:25"
-      - "1026:143"
-    volumes:
-      - smtp4dev-data:/smtp4dev
+  # smtp4dev:
+  #   image: rnwood/smtp4dev:latest
+  #   restart: always
+  #   ports:
+  #     - "8025:80"
+  #     - "1025:25"
+  #     - "1026:143"
+  #   volumes:
+  #     - smtp4dev-data:/smtp4dev
 
-  ravendb:
-    image: ravendb/ravendb:latest
-    restart: always
-    ports:
-      - "8080:8080"
-      - "38888:38888"
-    volumes:
-      - ravenDbData:/opt/RavenDB/Server/RavenData
-      - ravenDbConfig:/opt/RavenDB/config
-    environment:
-      - RAVEN_Setup_Mode=None
-      - RAVEN_License_Eula_Accepted=true
-      - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork
+  # ravendb:
+  #   image: ravendb/ravendb:latest
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #     - "38888:38888"
+  #   volumes:
+  #     - ravenDbData:/opt/RavenDB/Server/RavenData
+  #     - ravenDbConfig:/opt/RavenDB/config
+  #   environment:
+  #     - RAVEN_Setup_Mode=None
+  #     - RAVEN_License_Eula_Accepted=true
+  #     - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork
 
-  rabbitmq:
-    image: rabbitmq:management
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-    hostname: rabbitmq
+  # rabbitmq:
+  #   image: rabbitmq:management
+  #   restart: always
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   volumes:
+  #     - rabbitmq_data:/var/lib/rabbitmq
+  #   hostname: rabbitmq
 
   redis:
     image: redis:latest
@@ -54,39 +54,39 @@ services:
     environment:
       - ACCEPT_EULA=Y
 
-  plantUml:
-    image: plantuml/plantuml-server:jetty
-    restart: always
-    ports:
-      - "8090:8080"
+  # plantUml:
+  #   image: plantuml/plantuml-server:jetty
+  #   restart: always
+  #   ports:
+  #     - "8090:8080"
 
-  mssql:
-    image: mcr.microsoft.com/azure-sql-edge:latest
-    restart: always
-    ports:
-      - "1433:1433"
-    # volumes:
-    #- mssqlData:/var/opt/mssql
-    environment:
-      - ACCEPT_EULA=1
-      - MSSQL_USER=SA
-      - MSSQL_SA_PASSWORD=Passw0rd1!
-      - MSSQL_PID=Developer
+  # mssql:
+  #   image: mcr.microsoft.com/azure-sql-edge:latest
+  #   restart: always
+  #   ports:
+  #     - "1433:1433"
+  #   # volumes:
+  #   #- mssqlData:/var/opt/mssql
+  #   environment:
+  #     - ACCEPT_EULA=1
+  #     - MSSQL_USER=SA
+  #     - MSSQL_SA_PASSWORD=Passw0rd1!
+  #     - MSSQL_PID=Developer
 
-  watchtower:
-    image: containrrr/watchtower
-    restart: always
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_SCHEDULE=0 0 * * * *
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   restart: always
+  #   environment:
+  #     - WATCHTOWER_CLEANUP=true
+  #     - WATCHTOWER_SCHEDULE=0 0 * * * *
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
-  ravenDbData: {}
-  ravenDbConfig: {}
-  rabbitmq_data: {}
+  # ravenDbData: {}
+  # ravenDbConfig: {}
+  # rabbitmq_data: {}
   seqData: {}
   redis-data: {}
   # mssqlData: {}
-  smtp4dev-data: {}
+  # smtp4dev-data: {}
