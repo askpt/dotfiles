@@ -73,14 +73,14 @@ services:
   #     - MSSQL_SA_PASSWORD=Passw0rd1!
   #     - MSSQL_PID=Developer
 
-  # watchtower:
-  #   image: containrrr/watchtower
-  #   restart: always
-  #   environment:
-  #     - WATCHTOWER_CLEANUP=true
-  #     - WATCHTOWER_SCHEDULE=0 0 * * * *
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 * * * *
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   # ravenDbData: {}
