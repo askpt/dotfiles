@@ -26,3 +26,8 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 {{ if eq .chezmoi.os "darwin" -}}
 export PATH="$PATH:/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin"
 {{ end -}}
+
+# GH Copilot
+alias "??"="gh copilot suggest -t shell"
+alias "gh?"="gh copilot suggest -t gh"
+alias "git?"="gh copilot suggest -t git"
