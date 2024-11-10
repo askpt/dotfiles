@@ -12,10 +12,7 @@ echo "Install brew bundle"
 brew tap homebrew/bundle
 
 {{ $taps := list
-      "homebrew/cask-fonts"
-      "homebrew/cask-versions"
       "homebrew/bundle"
-      "homebrew/cask-drivers"
       "nicoverbruggen/homebrew-cask" -}}
 
 {{ $brews := list
@@ -31,7 +28,6 @@ brew tap homebrew/bundle
      "awscli"
      "azure-cli"
      "chezmoi"
-     "svn"
      "python"
      "git-delta"
      "httpie"
@@ -43,12 +39,10 @@ brew tap homebrew/bundle
      "slack"
      "visual-studio-code"
      "dotnet-sdk"
-     "grammarly"
-     "postman"
      "jetbrains-toolbox"
      "sf-symbols"
      "redisinsight"
-     "copilot-for-xcode"
+     "github-copilot-for-xcode"
      "powershell"
      "microsoft-edge" -}}
 
