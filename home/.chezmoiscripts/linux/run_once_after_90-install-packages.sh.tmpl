@@ -32,16 +32,26 @@ brew tap homebrew/bundle
       "homebrew/bundle" -}}
 
 {{ $brews := list
+     "ansible"
+     "ansible-lint"
      "bash"
+     "bat"
      "gh"
      "git"
      "gnupg"
      "grep"
      "node"
      "yarn"
-     "chezmoi"
+     "coreutils"
      "awscli"
-     "azure-cli" -}}
+     "azure-cli"
+     "chezmoi"
+     "python"
+     "git-delta"
+     "httpie"
+     "sshpass"
+     "git-lfs"
+     "pkg-config" -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
