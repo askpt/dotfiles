@@ -7,12 +7,7 @@ set -eufo pipefail
 echo "Update brew repositories"
 brew update
 
-# Install all our dependencies with bundle (See Brewfile)
-echo "Install brew bundle"
-brew tap homebrew/bundle
-
 {{ $taps := list
-      "homebrew/bundle"
       "nicoverbruggen/homebrew-cask" -}}
 
 {{ $brews := list
@@ -61,7 +56,7 @@ brew tap homebrew/bundle
 {{ $drivers := list
      "logi-options-plus" -}}
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end -}}
