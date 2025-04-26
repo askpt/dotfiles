@@ -14,3 +14,9 @@ data:
   name: "{{ $name }}"
   email: "{{ $email }}"
   codespaces: "{{ $codespaces }}"
+
+{{/* dont set azurekeyvault on codespaces */}}
+{{- if not $codespaces -}}
+azureKeyVault:
+  defaultVault: "askpt-dot"
+{{- end -}}
