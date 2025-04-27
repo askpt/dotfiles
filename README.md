@@ -6,6 +6,11 @@ dotfiles are a group of special files that store some important user settings li
 This is possible due to [chezmoi](https://www.chezmoi.io).
 There are some settings that are specific for me, so use this repository as a guide.
 
+## Prerequisites
+
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) must be installed.
+- You must be logged in to Azure CLI using `az login` for all features to work correctly.
+
 ## Installation
 
 Run this script in the terminal:

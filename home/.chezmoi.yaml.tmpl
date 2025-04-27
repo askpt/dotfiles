@@ -1,4 +1,9 @@
+{{/* boolean feature tags */}}
 {{- $codespaces := false -}}
+{{- $work := false -}}
+{{- $personal := false -}}
+
+{{- $hostname := .chezmoi.hostname -}}
 
 {{/* detect GitHub codespaces, VSCode remote containers, Docker containers, and Vagrant boxes */}}
 {{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") -}}
@@ -10,10 +15,18 @@
 
 sourceDir: "{{ .chezmoi.sourceDir }}"
 
+{{- if eq $hostname "DUB" -}}
+{{-   $work = true -}}
+{{- else -}}
+{{-   $personal = true -}}
+{{- end -}}
+
 data:
   name: "{{ $name }}"
   email: "{{ $email }}"
   codespaces: "{{ $codespaces }}"
+  work: {{ $work }}
+  personal: {{ $personal }}
 
 {{/* dont set azurekeyvault on codespaces */}}
 {{- if not $codespaces -}}
