@@ -1,0 +1,17 @@
+{{- if not .codespaces -}}
+#!/bin/sh
+
+# Extract the email from the GPG key
+EMAIL={{ .email }}
+# Check if the key is already imported
+if gpg --list-secret-keys "$EMAIL" >/dev/null 2>&1; then
+  echo "GPG key for $EMAIL is already imported"
+else
+  echo "Importing GPG key for $EMAIL"
+  # Import the GPG key
+  gpg --import $HOME/.gnupg/key.asc
+  # Clean up
+  rm $HOME/.gnupg/key.asc
+fi
+
+{{ end }}
