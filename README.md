@@ -16,6 +16,22 @@ There are some settings that are specific for me, so use this repository as a gu
 Run this script in the terminal:
 `sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply askpt`
 
+## GPG Key Import
+
+A GPG private key template is provided at `home/private_dot_gnupg/key.asc.tmpl`. After setup, your GPG key will be available at `~/.gnupg/key.asc` on your system. To import this key into your GPG keyring, run:
+
+```sh
+gpg --import ~/.gnupg/key.asc
+```
+
+After importing, for security, you should remove the key file:
+
+```sh
+rm ~/.gnupg/key.asc
+```
+
+Keep your private key secure and never share it publicly.
+
 ## Thanks To
 
 I want to thank all the people that worked on the following repositories:
