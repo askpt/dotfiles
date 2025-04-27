@@ -16,6 +16,20 @@ There are some settings that are specific for me, so use this repository as a gu
 Run this script in the terminal:
 `sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply askpt`
 
+## GitHub Copilot CLI Setup
+
+To use GitHub Copilot CLI, follow these steps:
+
+1. Make sure you have the [GitHub CLI](https://cli.github.com/) installed.
+2. Log in to your GitHub account using the CLI:
+   ```sh
+   gh auth login
+   ```
+3. Install the Copilot CLI extension:
+   ```sh
+   gh extension install github/gh-copilot
+   ```
+
 ## GPG Key Import
 
 A GPG private key template is provided at `home/private_dot_gnupg/key.asc.tmpl`. After setup, your GPG key will be available at `~/.gnupg/key.asc` on your system. To import this key into your GPG keyring, run:
