@@ -13,8 +13,6 @@
 {{- $name := "André Silva" -}}
 {{- $email := "2493377+askpt@users.noreply.github.com" -}}
 
-sourceDir: "{{ .chezmoi.sourceDir }}"
-
 {{- if eq $hostname "DUB" -}}
 {{-   $work = true -}}
 {{- else -}}
@@ -22,11 +20,12 @@ sourceDir: "{{ .chezmoi.sourceDir }}"
 {{- end -}}
 
 data:
-  name: "{{ $name }}"
-  email: "{{ $email }}"
-  codespaces: "{{ $codespaces }}"
+  name: {{ $name | quote }}
+  email: {{ $email | quote }}
+  codespaces: {{ $codespaces }}
   work: {{ $work }}
   personal: {{ $personal }}
+  hostname: {{ $hostname | quote }}
 
 {{/* dont set azurekeyvault on codespaces */}}
 {{- if not $codespaces -}}

@@ -1,4 +1,4 @@
-{{- if (and (eq .chezmoi.os "linux") (eq .codespaces "false")) -}}
+{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
 #!/bin/bash
 
 set -eufo pipefail
