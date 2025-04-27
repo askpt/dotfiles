@@ -10,8 +10,8 @@ else
   echo "Importing GPG key for $EMAIL"
   # Import the GPG key
   gpg --import $HOME/.gnupg/key.asc
-  # Clean up
-  rm $HOME/.gnupg/key.asc
 fi
+# Clean up
+rm $HOME/.gnupg/key.asc
 
 {{ end }}
