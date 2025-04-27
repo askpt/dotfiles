@@ -1,8 +1,27 @@
 #!/bin/sh
 
-FILE="$HOME/.ssh/id_rsa_homelab"
-if [ -f "$FILE" ]; then
-  if [ "$(stat -c %a "$FILE")" != "600" ]; then
-    chmod 600 "$FILE"
+# Static list of files (space-separated, POSIX sh compatible)
+FILES="$HOME/.ssh/id_ed25519 $HOME/.ssh/id_rsa_homelab"
+
+{{ if (eq .chezmoi.os "darwin") }}
+# macOS
+for FILE in $FILES; do
+  if [ -f "$FILE" ]; then
+    PERM=$(stat -f %p "$FILE" 2>/dev/null | tail -c 4)
+    if [ "$PERM" != "0600" ]; then
+      chmod 600 "$FILE"
+    fi
   fi
-fi
+done
+{{ end }}
+
+{{ if (and (eq .chezmoi.os "linux") (not .codespaces)) }}
+# Linux
+for FILE in $FILES; do
+  if [ -f "$FILE" ]; then
+    if [ "$(stat -c %a "$FILE")" != "600" ]; then
+      chmod 600 "$FILE"
+    fi
+  fi
+done
+{{ end }}
