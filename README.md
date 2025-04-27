@@ -14,7 +14,10 @@ There are some settings that are specific for me, so use this repository as a gu
 ## Installation
 
 Run this script in the terminal:
-`sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply askpt`
+
+```sh
+-c "$(curl -fsLS chezmoi.io/get)" -- init --apply askpt
+```
 
 ## GitHub Copilot CLI Setup
 
