@@ -14,8 +14,14 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ end -}}
 
 # .NET Tools and SDK
+{{ if eq .chezmoi.os "linux" -}}
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+{{ end -}}
+{{ if eq .chezmoi.os "darwin" -}}
+export DOTNET_ROOT=/opt/homebrew/bin/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+{{ end -}}
 
 # Python tools
 {{ if eq .chezmoi.os "darwin" -}}
