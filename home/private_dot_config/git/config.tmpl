@@ -227,9 +227,9 @@ useConfigOnly = true
 # add name, email, signingkey, to ~/.gitconfig.local
 name={{ .name }}
 email={{ .email }}
-{{- if not .codespaces -}}
+{{ if not .codespaces }}
 signingkey = {{ azureKeyVault "signingkey" }}
-{{- end }}
+{{ end }}
 
 [include]
 # Load local configs.
