@@ -21,6 +21,7 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 {{ if eq .chezmoi.os "darwin" -}}
 export DOTNET_ROOT=/opt/homebrew/bin/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+export PATH=$PATH:$HOME/.dotnet/tools
 {{ end -}}
 
 # Python tools
