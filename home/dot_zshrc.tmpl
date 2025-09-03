@@ -77,19 +77,26 @@ zstyle ':omz:update' mode disabled  # disable automatic updates
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git
+plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
+    ansible
     aws
+    azure
     brew
+    chezmoi
     docker-compose
     dotnet
     gh
+    git
     git-auto-fetch
+    git-extras
+    github
+    golang
     gpg-agent
     node
-    vscode
-    yarn)
+    npm
+    vscode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -124,3 +131,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Load all of the config files in ~/.zprofile
 [[ ! -f ~/.zprofile ]] || source ~/.zprofile
+
+{{ if eq .chezmoi.os "darwin" -}}
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+FPATH="$HOME/.docker/completions:$FPATH"
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+{{ end -}}
