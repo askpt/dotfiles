@@ -8,11 +8,13 @@ echo "Update brew repositories"
 brew update
 
 {{ $taps := list
-      "nicoverbruggen/homebrew-cask" -}}
+      "nicoverbruggen/homebrew-cask",
+      "azure/azd" -}}
 
 {{ $brews := list
      "ansible"
      "ansible-lint"
+     "azd"
      "bash"
      "bat"
      "gh"
