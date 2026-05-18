@@ -1,0 +1,81 @@
+packages:
+  darwin:
+    taps:
+      - nicoverbruggen/homebrew-cask
+      - azure/azd
+    brews:
+      - ansible
+      - ansible-lint
+      - azd
+      - bash
+      - bat
+      - gh
+      - git
+      - go
+      - gnupg
+      - k6
+      - grep
+      - node
+      - yarn
+      - coreutils
+      - azure-cli
+      - chezmoi
+      - python
+      - git-delta
+      - httpie
+      - sshpass
+      - git-lfs
+      - pinentry-mac
+      - powershell
+      - pkg-config
+    casks:
+      - copilot-cli
+      - devtunnel
+      - docker-desktop
+      - gpg-suite
+      - slack
+      - visual-studio-code
+      - dotnet-sdk
+      - jetbrains-toolbox
+      - sf-symbols
+      - github-copilot-app
+      - github-copilot-for-xcode
+      - microsoft-edge
+    fonts:
+      - font-lato
+      - font-open-sans
+      - font-roboto
+      - font-meslo-lg-nerd-font
+      - font-jetbrains-mono
+      - font-meslo-for-powerline
+    drivers:
+      - logi-options+
+  linux:
+    apt:
+      - zsh
+      - build-essential
+    brews:
+      - ansible
+      - ansible-lint
+      - bash
+      - bat
+      - gh
+      - git
+      - gnupg
+      - go
+      - gcc
+      - grep
+      - node
+      - yarn
+      - coreutils
+      - azure-cli
+      - chezmoi
+      - python
+      - powershell
+      - git-delta
+      - httpie
+      - sshpass
+      - git-lfs
+      - copilot-cli
+      - devtunnel
+      - pkg-config

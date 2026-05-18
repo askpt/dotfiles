@@ -1,0 +1,26 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Update brew repositories"
+brew update
+
+brew bundle --file=/dev/stdin <<EOF
+{{ range (.packages.darwin.taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range (.packages.darwin.brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range (.packages.darwin.casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range (.packages.darwin.fonts | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range (.packages.darwin.drivers | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}
