@@ -19,19 +19,24 @@ Run this script in the terminal:
 sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply askpt
 ```
 
-## GitHub Copilot CLI Setup
+## Work vs personal machine
 
-To use GitHub Copilot CLI, follow these steps:
+Chezmoi now detects a work machine using a marker file in your home directory:
 
-1. Make sure you have the [GitHub CLI](https://cli.github.com/) installed.
-2. Log in to your GitHub account using the CLI:
-   ```sh
-   gh auth login
-   ```
-3. Install the Copilot CLI extension:
-   ```sh
-   gh extension install github/gh-copilot
-   ```
+- If `~/.work` exists, the machine is treated as **work**.
+- If `~/.work` does not exist, the machine is treated as **personal**.
+
+To mark a machine as work:
+
+```sh
+touch ~/.work
+```
+
+To switch back to personal:
+
+```sh
+rm ~/.work
+```
 
 ## Thanks To
 

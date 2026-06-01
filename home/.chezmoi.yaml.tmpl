@@ -13,7 +13,7 @@
 {{- $name := "André Silva" -}}
 {{- $email := "2493377+askpt@users.noreply.github.com" -}}
 
-{{- if eq $hostname "DUB" -}}
+{{- if stat (printf "%s/.work" (env "HOME")) -}}
 {{-   $work = true -}}
 {{- else -}}
 {{-   $personal = true -}}
