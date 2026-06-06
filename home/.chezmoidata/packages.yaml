@@ -28,10 +28,13 @@ packages:
       - pinentry-mac
       - powershell
       - pkg-config
+      - colima
+      - docker
+      - docker-compose
+      - docker-buildx
     casks:
       - copilot-cli
       - devtunnel
-      - docker-desktop
       - gpg-suite
       - slack
       - visual-studio-code
