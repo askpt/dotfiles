@@ -12,6 +12,9 @@
 
 {{- $name := "André Silva" -}}
 {{- $email := "2493377+askpt@users.noreply.github.com" -}}
+{{- if and $work (not $codespaces) -}}
+{{- $email = azureKeyVault "email-work" "askpt-dot" -}}
+{{- end -}}
 
 {{- if stat (printf "%s/.work" (env "HOME")) -}}
 {{-   $work = true -}}
