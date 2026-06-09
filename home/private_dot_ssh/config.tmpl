@@ -1,3 +1,8 @@
 {{- if not .codespaces -}}
+{{- if .work -}}
+{{ azureKeyVault "ssh-config-emu" }}
+{{- end -}}
+{{- else -}}
 {{ azureKeyVault "ssh-config" }}
+{{- end -}}
 {{- end -}}
