@@ -228,7 +228,7 @@ useConfigOnly = true
 name={{ .name }}
 email={{ .email }}
 {{ if not .codespaces }}
-signingkey = {{ azureKeyVault "signingkey" }}
+signingkey = {{ .signingkey }}
 {{ end }}
 
 [include]
@@ -259,7 +259,6 @@ path = ~/.config/git/config.local
     colorMoved = default
 
 [init]
-
     defaultBranch = main
 
 [pretty]
