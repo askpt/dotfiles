@@ -19,7 +19,9 @@ export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 {{ end -}}
 {{ if eq .chezmoi.os "darwin" -}}
-export DOTNET_ROOT=/opt/homebrew/bin/.dotnet
+#export DOTNET_ROOT=/opt/homebrew/bin/.dotnet
+export DOTNET_ROOT=/usr/local/share/dotnet
+export PATH=/usr/local/share/dotnet:$PATH
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 export PATH=$PATH:$HOME/.dotnet/tools
 {{ end -}}
