@@ -9,8 +9,18 @@ echo "Update brew repositories"
 brew update
 
 brew bundle --file=/dev/stdin <<EOF
-{{ range (.packages.linux.brews | sortAlpha | uniq) -}}
+{{ range (.packages.linux.common.brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
+{{ end -}}
+{{ if .personal -}}
+{{ range (.packages.linux.personal.brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ end -}}
+{{ if .work -}}
+{{ range (.packages.linux.work.brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
 {{ end -}}
 EOF
 {{ end -}}

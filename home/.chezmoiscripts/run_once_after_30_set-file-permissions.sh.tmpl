@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Static list of files (space-separated, POSIX sh compatible)
-FILES="$HOME/.ssh/id_ed25519 $HOME/.ssh/id_rsa_homelab"
+FILES="$HOME/.ssh/id_ed25519 $HOME/.ssh/id_ed25519-emu $HOME/.ssh/id_rsa_homelab"
 
 {{ if (eq .chezmoi.os "darwin") }}
 # macOS

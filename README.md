@@ -38,6 +38,12 @@ To switch back to personal:
 rm ~/.work
 ```
 
+Package installs follow the same split in `home/.chezmoidata/packages.yaml`:
+
+- `common` is always installed.
+- `personal` is installed when `personal: true`.
+- `work` is installed when `work: true`.
+
 ## Thanks To
 
 I want to thank all the people that worked on the following repositories:
