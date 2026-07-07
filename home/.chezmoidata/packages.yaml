@@ -87,8 +87,6 @@ packages:
         - httpie
         - sshpass
         - git-lfs
-        - copilot-cli
-        - devtunnel
         - pkg-config
         - colima
         - docker
