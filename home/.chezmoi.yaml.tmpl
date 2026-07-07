@@ -10,12 +10,6 @@
 {{-   $codespaces = true -}}
 {{- end -}}
 
-{{/* dont set azurekeyvault on codespaces */}}
-{{- if not $codespaces -}}
-azureKeyVault:
-  defaultVault: "askpt-dot"
-{{- end -}}
-
 {{- $name := "André Silva" -}}
 {{- $email := "2493377+askpt@users.noreply.github.com" -}}
 {{- if and $work (not $codespaces) -}}
@@ -38,3 +32,9 @@ data:
   personal-signing-key: {{ azureKeyVault "signingkey-personal" "askpt-dot" }}
   work-signing-key: {{ azureKeyVault "signingkey-work" "askpt-dot" }}
   signingkey: {{ if $work }}{{ azureKeyVault "signingkey-work" "askpt-dot" }}{{ else }}{{ azureKeyVault "signingkey-personal" "askpt-dot" }}{{ end }}
+
+{{/* dont set azurekeyvault on codespaces */}}
+{{- if not $codespaces -}}
+azureKeyVault:
+  defaultVault: "askpt-dot"
+{{- end -}}
