@@ -19,7 +19,7 @@ azureKeyVault:
 {{- $name := "André Silva" -}}
 {{- $email := "2493377+askpt@users.noreply.github.com" -}}
 {{- if and $work (not $codespaces) -}}
-{{- $email = azureKeyVault "email-work" -}}
+{{- $email = azureKeyVault "email-work" "askpt-dot" -}}
 {{- end -}}
 
 {{- if stat (printf "%s/.work" (env "HOME")) -}}
@@ -35,6 +35,6 @@ data:
   work: {{ $work }}
   personal: {{ $personal }}
   hostname: {{ $hostname | quote }}
-  personal-signing-key: {{ azureKeyVault "signingkey-personal" }}
-  work-signing-key: {{ azureKeyVault "signingkey-work" }}
-  signingkey: {{ if $work }}{{ azureKeyVault "signingkey-work" }}{{ else }}{{ azureKeyVault "signingkey-personal" }}{{ end }}
+  personal-signing-key: {{ azureKeyVault "signingkey-personal" "askpt-dot" }}
+  work-signing-key: {{ azureKeyVault "signingkey-work" "askpt-dot" }}
+  signingkey: {{ if $work }}{{ azureKeyVault "signingkey-work" "askpt-dot" }}{{ else }}{{ azureKeyVault "signingkey-personal" "askpt-dot" }}{{ end }}
