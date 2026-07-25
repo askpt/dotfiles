@@ -33,6 +33,7 @@ packages:
         - docker
         - docker-compose
         - docker-buildx
+        - uv
       casks:
         - copilot-cli
         - devtunnel
@@ -92,6 +93,7 @@ packages:
         - docker
         - docker-compose
         - docker-buildx
+        - uv
     personal:
       brews: []
     work:
