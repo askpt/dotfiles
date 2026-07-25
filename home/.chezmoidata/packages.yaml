@@ -3,6 +3,7 @@ packages:
     taps:
       - nicoverbruggen/homebrew-cask
       - azure/azd
+      - microsoft/aspire
     common:
       brews:
         - ansible
@@ -35,6 +36,7 @@ packages:
         - docker-buildx
         - uv
       casks:
+        - aspire
         - copilot-cli
         - devtunnel
         - gpg-suite
