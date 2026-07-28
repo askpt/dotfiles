@@ -49,7 +49,6 @@ packages:
       casks:
         - slack
         - jetbrains-toolbox
-        - github-copilot-for-xcode
         - sf-symbols
     work:
       brews: []
