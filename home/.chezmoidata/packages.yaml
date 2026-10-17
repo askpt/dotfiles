@@ -4,6 +4,7 @@ packages:
       - nicoverbruggen/homebrew-cask
       - azure/azd
       - microsoft/aspire
+      - siderolabs/tap
     common:
       brews:
         - ansible
@@ -35,6 +36,7 @@ packages:
         - docker-compose
         - docker-buildx
         - uv
+        - kubernetes-cli
       casks:
         - aspire
         - copilot-cli
@@ -45,7 +47,8 @@ packages:
         - github-copilot-app
         - microsoft-edge
     personal:
-      brews: []
+      brews:
+        - talosctl
       casks:
         - slack
         - jetbrains-toolbox
